@@ -11,3 +11,10 @@ install-sh
 ltmain.sh
 missing
 mkinstalldirs
+.deps
+.libs
+Makefil*
+*.la
+*.lo
+libtool
+modules
