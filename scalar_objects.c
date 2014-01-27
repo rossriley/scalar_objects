@@ -295,6 +295,11 @@ ZEND_BEGIN_ARG_INFO_EX(arginfo_register_handler, 0, 0, 2)
 	ZEND_ARG_INFO(0, "class")
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_INFO_EX(arginfo_void, 0, 0, 0)
+ZEND_END_ARG_INFO()
+
+
+
 const zend_function_entry scalar_objects_functions[] = {
 	ZEND_FE(register_primitive_type_handler, arginfo_register_handler)
 	ZEND_FE_END
