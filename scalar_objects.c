@@ -500,6 +500,9 @@ ZEND_RSHUTDOWN_FUNCTION(scalar_objects)
 ZEND_MINFO_FUNCTION(scalar_objects)
 {
 	php_info_print_table_start();
-	php_info_print_table_header(2, "scalar-objects support", "enabled");
+	php_info_print_table_header(2, "Scalar Objects Support", "enabled");
+	php_info_print_table_row(2, "Version", "0.1.0 Prototype Stage");
+	php_info_print_table_row(2, "Handler Classes", "SplScalarObject, SplScalarArray, SplScalarBoolean, SplScalarFloat, SplScalarInteger, SplScalarNull, SplScalarString");
 	php_info_print_table_end();
 }
+
