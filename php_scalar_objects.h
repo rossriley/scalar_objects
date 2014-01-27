@@ -61,11 +61,27 @@ ZEND_END_MODULE_GLOBALS(scalar_objects)
 
 #endif
 
-/*
- * Local variables:
- * tab-width: 4
- * c-basic-offset: 4
- * End:
- * vim600: noet sw=4 ts=4 fdm=marker
- * vim<600: noet sw=4 ts=4
- */
+static void register_scalar_objects(TSRMLS_D);
+static void register_default_handlers(TSRMLS_D);
+
+PHP_METHOD( SplScalarObject, isArray );
+PHP_METHOD( SplScalarObject, isBool );
+PHP_METHOD( SplScalarObject, isBool );
+PHP_METHOD( SplScalarObject, isFloat );
+PHP_METHOD( SplScalarObject, isInt );
+PHP_METHOD( SplScalarObject, isNull );
+PHP_METHOD( SplScalarObject, isString );
+
+
+PHP_METHOD( SplScalarArray, isArray );
+
+PHP_METHOD( SplScalarBoolean, isBool );
+
+PHP_METHOD( SplScalarFloat, isFloat );
+
+PHP_METHOD( SplScalarInteger, isInt );
+
+PHP_METHOD( SplScalarNull, isNull );
+
+PHP_METHOD( SplScalarString, isString );
+
