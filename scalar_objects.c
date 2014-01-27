@@ -308,7 +308,7 @@ zend_module_entry scalar_objects_module_entry = {
 	scalar_objects_functions,
 	ZEND_MINIT(scalar_objects),
 	ZEND_MSHUTDOWN(scalar_objects),
-	ZEND_RINIT(scalar_objects),	
+	ZEND_RINIT(scalar_objects),
 	ZEND_RSHUTDOWN(scalar_objects),
 	ZEND_MINFO(scalar_objects),
 	"0.1",
@@ -319,6 +319,47 @@ zend_module_entry scalar_objects_module_entry = {
 	STANDARD_MODULE_PROPERTIES_EX
 };
 
+
+
+
+/****** Code to manage handlers below here *******/
+
+
+/***** Methods for base SplScalarObject ********/
+static zend_function_entry scalar_object_functions[] = {
+    PHP_ME( SplScalarObject, isArray, 	NULL, ZEND_ACC_PUBLIC )
+    PHP_ME( SplScalarObject, isBool, 	NULL, ZEND_ACC_PUBLIC )
+    PHP_ME( SplScalarObject, isFloat, 	NULL, ZEND_ACC_PUBLIC )
+    PHP_ME( SplScalarObject, isInt, 	NULL, ZEND_ACC_PUBLIC )
+    PHP_ME( SplScalarObject, isNull, 	NULL, ZEND_ACC_PUBLIC )
+    PHP_ME( SplScalarObject, isString, 	NULL, ZEND_ACC_PUBLIC )
+    PHP_FE_END
+};
+
+PHP_METHOD( SplScalarObject, isArray )
+{
+    RETURN_BOOL(0);
+}
+PHP_METHOD( SplScalarObject, isBool )
+{
+    RETURN_BOOL(0);
+}
+PHP_METHOD( SplScalarObject, isFloat )
+{
+    RETURN_BOOL(0);
+}
+PHP_METHOD( SplScalarObject, isInt )
+{
+    RETURN_BOOL(0);
+}
+PHP_METHOD( SplScalarObject, isNull )
+{
+    RETURN_BOOL(0);
+}
+PHP_METHOD( SplScalarObject, isString )
+{
+    RETURN_BOOL(0);
+}
 ZEND_MINIT_FUNCTION(scalar_objects) {
 	zend_set_user_opcode_handler(ZEND_INIT_METHOD_CALL, scalar_objects_method_call_handler);
 
