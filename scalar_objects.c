@@ -360,6 +360,78 @@ PHP_METHOD( SplScalarObject, isString )
 {
     RETURN_BOOL(0);
 }
+
+/****** Methods for SplScalarArray ************/
+
+static zend_function_entry scalar_object_array_functions[] = {
+	PHP_ME( SplScalarArray, isArray, NULL, ZEND_ACC_PUBLIC )
+	PHP_FE_END
+};
+
+PHP_METHOD( SplScalarArray, isArray )
+{
+    RETURN_BOOL(1);
+}
+
+/****** Methods for SplScalarBoolean ************/
+
+static zend_function_entry scalar_object_boolean_functions[] = {
+	PHP_ME( SplScalarBoolean, isBool, NULL, ZEND_ACC_PUBLIC )
+	PHP_FE_END
+};
+
+PHP_METHOD( SplScalarBoolean, isBool )
+{
+    RETURN_BOOL(1);
+}
+
+/****** Methods for SplScalarFloat ************/
+
+static zend_function_entry scalar_object_float_functions[] = {
+	PHP_ME( SplScalarFloat, isFloat, NULL, ZEND_ACC_PUBLIC )
+	PHP_FE_END
+};
+
+PHP_METHOD( SplScalarFloat, isFloat )
+{
+    RETURN_BOOL(1);
+}
+
+/****** Methods for SplScalarInteger ************/
+
+static zend_function_entry scalar_object_integer_functions[] = {
+	PHP_ME( SplScalarInteger, isInt, NULL, ZEND_ACC_PUBLIC )
+	PHP_FE_END
+};
+
+PHP_METHOD( SplScalarInteger, isInt )
+{
+    RETURN_BOOL(1);
+}
+
+/****** Methods for SplScalarNull ************/
+
+static zend_function_entry scalar_object_null_functions[] = {
+	PHP_ME( SplScalarNull, isNull, NULL, ZEND_ACC_PUBLIC )
+	PHP_FE_END
+};
+
+PHP_METHOD( SplScalarNull, isNull )
+{
+    RETURN_BOOL(1);
+}
+
+/****** Methods for SplScalarString ************/
+
+static zend_function_entry scalar_object_string_functions[] = {
+	PHP_ME( SplScalarString, isString, NULL, ZEND_ACC_PUBLIC )
+	PHP_FE_END
+};
+
+PHP_METHOD( SplScalarString, isString )
+{
+    RETURN_BOOL(1);
+}
 ZEND_MINIT_FUNCTION(scalar_objects) {
 	zend_set_user_opcode_handler(ZEND_INIT_METHOD_CALL, scalar_objects_method_call_handler);
 
