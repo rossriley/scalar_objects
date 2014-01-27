@@ -432,6 +432,46 @@ PHP_METHOD( SplScalarString, isString )
 {
     RETURN_BOOL(1);
 }
+
+/**** Class initialisation *****/
+static void register_scalar_objects()
+{
+	zend_class_entry *ce_SplScalarObject;
+	zend_class_entry ce_sc, ce_sc_a, ce_sc_b, ce_sc_f, ce_sc_i, ce_sc_n, ce_sc_s;
+
+
+    INIT_CLASS_ENTRY(ce_sc, "SplScalarObject", scalar_object_functions);
+    ce_SplScalarObject = zend_register_internal_class(&ce_sc TSRMLS_CC);
+
+    INIT_CLASS_ENTRY(ce_sc_a, "SplScalarArray", scalar_object_array_functions);
+    zend_register_internal_class_ex(&ce_sc_a, ce_SplScalarObject, NULL TSRMLS_CC);
+	SCALAR_OBJECTS_G(handlers)[4] = &ce_sc_a;
+
+    INIT_CLASS_ENTRY(ce_sc_b, "SplScalarBoolean", scalar_object_boolean_functions);
+    zend_register_internal_class_ex(&ce_sc_b, ce_SplScalarObject, NULL TSRMLS_CC);
+	SCALAR_OBJECTS_G(handlers)[3] = &ce_sc_b;
+
+
+    INIT_CLASS_ENTRY(ce_sc_f, "SplScalarFloat", scalar_object_float_functions);
+    zend_register_internal_class_ex(&ce_sc_f, ce_SplScalarObject, NULL TSRMLS_CC);
+	SCALAR_OBJECTS_G(handlers)[2] = &ce_sc_f;
+
+	INIT_CLASS_ENTRY(ce_sc_i, "SplScalarInteger", scalar_object_integer_functions);
+    zend_register_internal_class_ex(&ce_sc_i, ce_SplScalarObject, NULL TSRMLS_CC);
+	SCALAR_OBJECTS_G(handlers)[1] = &ce_sc_i;
+
+    INIT_CLASS_ENTRY(ce_sc_n, "SplScalarNull", scalar_object_null_functions);
+    zend_register_internal_class_ex(&ce_sc_n, ce_SplScalarObject, NULL TSRMLS_CC);
+	SCALAR_OBJECTS_G(handlers)[0] = &ce_sc_n;
+
+	INIT_CLASS_ENTRY(ce_sc_s, "SplScalarString", scalar_object_string_functions);
+    zend_register_internal_class_ex(&ce_sc_s, ce_SplScalarObject, NULL TSRMLS_CC);
+	SCALAR_OBJECTS_G(handlers)[6] = &ce_sc_s;
+
+
+
+
+}
 ZEND_MINIT_FUNCTION(scalar_objects) {
 	zend_set_user_opcode_handler(ZEND_INIT_METHOD_CALL, scalar_objects_method_call_handler);
 
