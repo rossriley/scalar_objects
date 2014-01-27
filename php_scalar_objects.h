@@ -61,8 +61,7 @@ ZEND_END_MODULE_GLOBALS(scalar_objects)
 
 #endif
 
-static void register_scalar_objects(TSRMLS_D);
-static void register_default_handlers(TSRMLS_D);
+void register_scalar_objects(TSRMLS_D);
 
 PHP_METHOD( SplScalarObject, isArray );
 PHP_METHOD( SplScalarObject, isBool );
