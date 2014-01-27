@@ -302,6 +302,7 @@ ZEND_END_ARG_INFO()
 
 const zend_function_entry scalar_objects_functions[] = {
 	ZEND_FE(register_primitive_type_handler, arginfo_register_handler)
+	ZEND_FE(get_primitive_type_handlers, arginfo_void)
 	ZEND_FE_END
 };
 
@@ -439,7 +440,7 @@ PHP_METHOD( SplScalarString, isString )
 }
 
 /**** Class initialisation *****/
-static void register_scalar_objects()
+void register_scalar_objects()
 {
 	zend_class_entry *ce_SplScalarObject;
 	zend_class_entry ce_sc, ce_sc_a, ce_sc_b, ce_sc_f, ce_sc_i, ce_sc_n, ce_sc_s;
@@ -450,38 +451,36 @@ static void register_scalar_objects()
 
     INIT_CLASS_ENTRY(ce_sc_a, "SplScalarArray", scalar_object_array_functions);
     zend_register_internal_class_ex(&ce_sc_a, ce_SplScalarObject, NULL TSRMLS_CC);
-	SCALAR_OBJECTS_G(handlers)[4] = &ce_sc_a;
 
     INIT_CLASS_ENTRY(ce_sc_b, "SplScalarBoolean", scalar_object_boolean_functions);
     zend_register_internal_class_ex(&ce_sc_b, ce_SplScalarObject, NULL TSRMLS_CC);
-	SCALAR_OBJECTS_G(handlers)[3] = &ce_sc_b;
 
 
     INIT_CLASS_ENTRY(ce_sc_f, "SplScalarFloat", scalar_object_float_functions);
     zend_register_internal_class_ex(&ce_sc_f, ce_SplScalarObject, NULL TSRMLS_CC);
-	SCALAR_OBJECTS_G(handlers)[2] = &ce_sc_f;
 
 	INIT_CLASS_ENTRY(ce_sc_i, "SplScalarInteger", scalar_object_integer_functions);
     zend_register_internal_class_ex(&ce_sc_i, ce_SplScalarObject, NULL TSRMLS_CC);
-	SCALAR_OBJECTS_G(handlers)[1] = &ce_sc_i;
 
     INIT_CLASS_ENTRY(ce_sc_n, "SplScalarNull", scalar_object_null_functions);
     zend_register_internal_class_ex(&ce_sc_n, ce_SplScalarObject, NULL TSRMLS_CC);
-	SCALAR_OBJECTS_G(handlers)[0] = &ce_sc_n;
 
 	INIT_CLASS_ENTRY(ce_sc_s, "SplScalarString", scalar_object_string_functions);
     zend_register_internal_class_ex(&ce_sc_s, ce_SplScalarObject, NULL TSRMLS_CC);
-	SCALAR_OBJECTS_G(handlers)[6] = &ce_sc_s;
 
 
 
 
 }
+
+
+
+
+/**** Extension lifecycle code *******/
+
 ZEND_MINIT_FUNCTION(scalar_objects) {
 	zend_set_user_opcode_handler(ZEND_INIT_METHOD_CALL, scalar_objects_method_call_handler);
-
 	register_scalar_objects(TSRMLS_CC);
-	register_default_handlers(TSRMLS_CC);
 	return SUCCESS;
 }
 
@@ -492,7 +491,32 @@ ZEND_MSHUTDOWN_FUNCTION(scalar_objects)
 
 ZEND_RINIT_FUNCTION(scalar_objects)
 {
+	zend_class_entry **ar_han;
+	zend_class_entry **bo_han;
+	zend_class_entry **fl_han;
+	zend_class_entry **in_han;
+	zend_class_entry **nu_han;
+	zend_class_entry **st_han;
+
 	memset(SCALAR_OBJECTS_G(handlers), 0, SCALAR_OBJECTS_NUM_HANDLERS * sizeof(zend_class_entry *));
+
+	zend_lookup_class("SplScalarArray", strlen("SplScalarArray"), &ar_han TSRMLS_DC);
+	SCALAR_OBJECTS_G(handlers)[get_type_from_string("array")] = *ar_han;
+
+	zend_lookup_class("SplScalarBoolean", strlen("SplScalarBoolean"), &bo_han TSRMLS_DC);
+	SCALAR_OBJECTS_G(handlers)[get_type_from_string("bool")] = *bo_han;
+
+	zend_lookup_class("SplScalarFloat", strlen("SplScalarFloat"), &fl_han TSRMLS_DC);
+	SCALAR_OBJECTS_G(handlers)[get_type_from_string("float")] = *fl_han;
+
+	zend_lookup_class("SplScalarInteger", strlen("SplScalarInteger"), &in_han TSRMLS_DC);
+	SCALAR_OBJECTS_G(handlers)[get_type_from_string("int")] = *in_han;
+
+	zend_lookup_class("SplScalarNull", strlen("SplScalarNull"), &nu_han TSRMLS_DC);
+	SCALAR_OBJECTS_G(handlers)[get_type_from_string("null")] = *nu_han;
+
+	zend_lookup_class("SplScalarString", strlen("SplScalarString"), &st_han TSRMLS_DC);
+	SCALAR_OBJECTS_G(handlers)[get_type_from_string("string")] = *st_han;
 
 	return SUCCESS;
 }
