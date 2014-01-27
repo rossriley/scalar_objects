@@ -475,6 +475,8 @@ static void register_scalar_objects()
 ZEND_MINIT_FUNCTION(scalar_objects) {
 	zend_set_user_opcode_handler(ZEND_INIT_METHOD_CALL, scalar_objects_method_call_handler);
 
+	register_scalar_objects(TSRMLS_CC);
+	register_default_handlers(TSRMLS_CC);
 	return SUCCESS;
 }
 
