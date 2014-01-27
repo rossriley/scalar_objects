@@ -261,6 +261,35 @@ ZEND_FUNCTION(register_primitive_type_handler) {
 	SCALAR_OBJECTS_G(handlers)[type] = ce;
 }
 
+ZEND_FUNCTION(get_primitive_type_handlers) {
+
+	zend_class_entry *array_handler;
+	zend_class_entry *bool_handler;
+	zend_class_entry *float_handler;
+	zend_class_entry *int_handler;
+	zend_class_entry *null_handler;
+	zend_class_entry *string_handler;
+
+	if (zend_parse_parameters_none() == FAILURE) {
+        return;
+    }
+
+    array_handler = SCALAR_OBJECTS_G(handlers)[4];
+    bool_handler = SCALAR_OBJECTS_G(handlers)[3];
+    float_handler = SCALAR_OBJECTS_G(handlers)[2];
+    int_handler = SCALAR_OBJECTS_G(handlers)[1];
+    null_handler = SCALAR_OBJECTS_G(handlers)[0];
+    string_handler = SCALAR_OBJECTS_G(handlers)[5];
+    php_printf("Array %s \nBool: %s \nFloat: %s \nInt: %s \nNull: %s \nString: %s",
+    	&array_handler->type,
+    	&bool_handler->type,
+    	&float_handler->type,
+    	&int_handler->type,
+    	&null_handler->type,
+    	&string_handler->type
+    );
+}
+
 ZEND_BEGIN_ARG_INFO_EX(arginfo_register_handler, 0, 0, 2)
 	ZEND_ARG_INFO(0, "type")
 	ZEND_ARG_INFO(0, "class")
