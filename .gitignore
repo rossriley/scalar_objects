@@ -18,3 +18,4 @@ Makefil*
 *.lo
 libtool
 modules
+run-tests.php
