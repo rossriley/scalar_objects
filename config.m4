@@ -6,5 +6,5 @@ Make sure that the comment is aligned:
 [  --enable-scalar-objects           Enable scalar-objects support])
 
 if test "$PHP_SCALAR_OBJECTS" != "no"; then
-  PHP_NEW_EXTENSION(scalar_objects, scalar_objects.c, $ext_shared)
+  PHP_NEW_EXTENSION(scalar_objects, scalar_objects.c scalar_object_handlers.c, $ext_shared)
 fi
