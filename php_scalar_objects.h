@@ -21,6 +21,7 @@
 #ifndef PHP_SCALAR_OBJECTS_H
 #define PHP_SCALAR_OBJECTS_H
 
+
 extern zend_module_entry scalar_objects_module_entry;
 #define phpext_scalar_objects_ptr &scalar_objects_module_entry
 
@@ -35,6 +36,10 @@ extern zend_module_entry scalar_objects_module_entry;
 #ifdef ZTS
 #include "TSRM.h"
 #endif
+#include "scalar_object_handlers.h"
+
+
+int get_type_from_string(const char *str);
 
 ZEND_MINIT_FUNCTION(scalar_objects);
 ZEND_MSHUTDOWN_FUNCTION(scalar_objects);
@@ -51,8 +56,10 @@ ZEND_END_MODULE_GLOBALS(scalar_objects)
 
 #ifdef ZTS
 #define SCALAR_OBJECTS_G(v) TSRMG(scalar_objects_globals_id, zend_scalar_objects_globals *, v)
+extern int scalar_objects_globals_id;
 #else
 #define SCALAR_OBJECTS_G(v) (scalar_objects_globals.v)
+extern zend_scalar_objects_globals scalar_objects_globals;
 #endif
 
 #if ZEND_MODULE_API_NO >= 20121204
@@ -60,27 +67,3 @@ ZEND_END_MODULE_GLOBALS(scalar_objects)
 #endif
 
 #endif
-
-void register_scalar_objects(TSRMLS_D);
-
-PHP_METHOD( SplScalarObject, isArray );
-PHP_METHOD( SplScalarObject, isBool );
-PHP_METHOD( SplScalarObject, isBool );
-PHP_METHOD( SplScalarObject, isFloat );
-PHP_METHOD( SplScalarObject, isInt );
-PHP_METHOD( SplScalarObject, isNull );
-PHP_METHOD( SplScalarObject, isString );
-
-
-PHP_METHOD( SplScalarArray, isArray );
-
-PHP_METHOD( SplScalarBoolean, isBool );
-
-PHP_METHOD( SplScalarFloat, isFloat );
-
-PHP_METHOD( SplScalarInteger, isInt );
-
-PHP_METHOD( SplScalarNull, isNull );
-
-PHP_METHOD( SplScalarString, isString );
-
