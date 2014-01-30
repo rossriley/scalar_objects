@@ -4,21 +4,38 @@ Testing SplScalarArray.
 <?php if (!extension_loaded('scalar_objects')) echo 'skip'; ?>
 --FILE--
 <?php
-$test = [1,2,3,4,5];
-var_dump($test->isArray());
-$test2 = ["key1"=>"val1"];
-var_dump($test2->isArray());
-var_dump($test2->isBool());
-var_dump($test2->isFloat());
-var_dump($test2->isInt());
-var_dump($test2->isNull());
-var_dump($test2->isString());
+error_reporting(E_ALL);
+require __DIR__ . '/bootstrap.php';
+
+head("Type Checks");
+arr([1,2,3,4,5]);
+r('isString()');
+r('isArray()');
+r('isBool()');
+r('isFloat()');
+r('isInt()');
+r('isNull()');
+head("Method Tests");
+r('count()');
 ?>
 --EXPECTF--
-bool(true)
-bool(true)
-bool(false)
-bool(false)
-bool(false)
-bool(false)
-bool(false)
+-----Type Checks-----
+
+Working on: Array
+(
+    [0] => 1
+    [1] => 2
+    [2] => 3
+    [3] => 4
+    [4] => 5
+)
+isString(): bool(false)
+isArray(): bool(true)
+isBool(): bool(false)
+isFloat(): bool(false)
+isInt(): bool(false)
+isNull(): bool(false)
+
+
+-----Method Tests-----
+count(): int(5)

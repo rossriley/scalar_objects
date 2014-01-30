@@ -17,6 +17,7 @@ PHP_METHOD( SplScalarObject, isString );
 
 
 PHP_METHOD( SplScalarArray, isArray );
+PHP_METHOD( SplScalarArray, count );
 
 PHP_METHOD( SplScalarBoolean, isBool );
 

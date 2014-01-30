@@ -51,13 +51,28 @@ PHP_METHOD( SplScalarObject, isString )
 /****** Methods for SplScalarArray ************/
 
 static zend_function_entry scalar_object_array_functions[] = {
-    PHP_ME( SplScalarArray, isArray, NULL, ZEND_ACC_PUBLIC )
+    PHP_ME( SplScalarArray, isArray,    NULL,  ZEND_ACC_PUBLIC )
+    PHP_ME( SplScalarArray, count,      NULL,  ZEND_ACC_PUBLIC )
     PHP_FE_END
 };
 
 PHP_METHOD( SplScalarArray, isArray )
 {
     RETURN_BOOL(1);
+}
+
+PHP_METHOD( SplScalarArray, count )
+{
+    long cnt;
+    zval* array = getThis();
+
+    if (zend_parse_parameters_none() == FAILURE) {
+        return;
+    }
+
+    cnt = zend_hash_num_elements(Z_ARRVAL_P(array));
+
+    RETURN_LONG (cnt);
 }
 
 /****** Methods for SplScalarBoolean ************/
@@ -133,8 +148,6 @@ PHP_METHOD( SplScalarString, length )
         return;
     }
     zval* strcontext = getThis();
-
-
     RETURN_LONG(Z_STRLEN_P(strcontext));
 }
 

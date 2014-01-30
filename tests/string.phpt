@@ -4,20 +4,32 @@ Testing SplScalarString.
 <?php if (!extension_loaded('scalar_objects')) echo 'skip'; ?>
 --FILE--
 <?php
-$test = "Hello World";
-var_dump($test->isString());
-var_dump($test->isArray());
-var_dump($test->isBool());
-var_dump($test->isFloat());
-var_dump($test->isInt());
-var_dump($test->isNull());
-var_dump($test->length());
+error_reporting(E_ALL);
+require __DIR__ . '/bootstrap.php';
+
+head("Type Checks");
+str("Hello World");
+r('isString()');
+r('isArray()');
+r('isBool()');
+r('isFloat()');
+r('isInt()');
+r('isNull()');
+head("Method Tests");
+r('length()');
+
 ?>
 --EXPECTF--
-bool(true)
-bool(false)
-bool(false)
-bool(false)
-bool(false)
-bool(false)
-int(11)
+
+-----Type Checks-----
+Working on string "Hello World"
+isString(): bool(true)
+isArray(): bool(false)
+isBool(): bool(false)
+isFloat(): bool(false)
+isInt(): bool(false)
+isNull(): bool(false)
+
+
+-----Method Tests-----
+length(): int(11)
